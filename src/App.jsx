@@ -9,7 +9,14 @@ export default function MobileFaceRecognitionApp() {
   const [cameraMode, setCameraMode] = useState("user");
   const [status, setStatus] = useState("Tap Start Camera to begin.");
   const [name, setName] = useState("");
-  const [enrolledFaces, setEnrolledFaces] = useState([]);
+  const [enrolledFaces, setEnrolledFaces] = useState(() => {
+  try {
+    const saved = localStorage.getItem("jgc_enrolled_faces");
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+});
 
   useEffect(() => {
     try {
